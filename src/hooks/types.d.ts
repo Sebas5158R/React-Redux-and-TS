@@ -17,5 +17,5 @@ export type User = {
 }
 
 // Types para los eventos de los componentes
-export type EventsChange = React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
-export type EventsSubmit = React.MouseEvent<HTMLButtonElement, MouseEvent>
+export type EventsChange = React.FormEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
+export type EventsSubmit = React.FormEvent<HTMLFormElement>

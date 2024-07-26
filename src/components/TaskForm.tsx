@@ -42,13 +42,13 @@ export function TaskForm() {
 
 
   return (
-    <form className="form-task">
+    <form className="form-task" onSubmit={handleSubmit}>
         <label htmlFor="title">Task:</label>
         <input type="text" placeholder="Title" name="title" onChange={handleChange} defaultValue={task?.title} />
 
         <label htmlFor="description">Description:</label>
         <textarea name="description" placeholder="Description" onChange={handleChange} defaultValue={task?.description}></textarea>
-        <button onClick={handleSubmit}>Save</button>
+        <button type="submit">Save</button>
     </form>
   )
 }

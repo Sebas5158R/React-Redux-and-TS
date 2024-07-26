@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { TaskList } from '@/components/TaskList'
 import { TaskForm } from '@components/TaskForm'
 import { ListOfUsers } from './components/ListOfUsers'
+import { Toaster } from 'sonner'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <Route path='/list-users' element={<ListOfUsers />} />
           </Routes>
         </BrowserRouter>
+        <Toaster richColors />
       </div>
     </div>
   )
