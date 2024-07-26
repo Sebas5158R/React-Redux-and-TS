@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react"
 import { EventsChange, EventsSubmit, Task } from "@/types"
-import { useDispatch, useSelector } from "react-redux" // Importando el hook useDispatch de react-redux para despachar acciones
 import { addTask, updateTask } from "@/features/tasks/taskSlice" // Importando la acción addTask del slice taskSlice
 import { useNavigate, useParams } from "react-router-dom"
-import type { RootState } from "@/app/store"
+import { useAppDispatch, useAppSelector } from "@/hooks"
 
 export function TaskForm() {
 
     const [task, setTask] = useState<Task | null>(null)
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const navigate = useNavigate()
     const params = useParams()
-    const tasks = useSelector((state: RootState) => state.tasks)
+    const tasks = useAppSelector((state) => state.tasks)
 
     const handleChange = (e: EventsChange) => {
         setTask({

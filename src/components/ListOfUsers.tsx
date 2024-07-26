@@ -1,15 +1,17 @@
-import type { RootState } from "@/app/store"
-import { useSelector } from "react-redux"
+import { useAppSelector } from "@/hooks"
 import { Link } from "react-router-dom"
 
 export function ListOfUsers() {
-    const users = useSelector((state: RootState) => state.users)
+    const users = useAppSelector((state) => state.users)
 
     return (
         <div className='user-list-container'>
             <header>
                 <h1>Total Users: {users.length}</h1>
-                <Link to={"/add-task"} className='header-link'>Create User</Link>
+                <div style={{ display: "flex", gap: "10px" }}>
+                    <Link to={"/"} className='header-link'>Back to tasks</Link>
+                    <Link to={"/add-task"} className='header-link'>Create User</Link>
+                </div>
             </header>
             <div className='user-list-data'>
                 {users.map((user) => (

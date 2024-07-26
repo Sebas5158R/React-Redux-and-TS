@@ -1,13 +1,12 @@
-import { useDispatch, useSelector } from 'react-redux' // useSelector es un hook que nos permite acceder al estado de la tienda y asi traer los datos que necesitamos
-import type { RootState } from '@/app/store' // Importamos el tipo RootState que es para el tipo de store.getState() que exportamos en store.ts
 import { deleteTask } from '@/features/tasks/taskSlice'
 import { Link } from 'react-router-dom'
+import { useAppDispatch, useAppSelector } from '@/hooks'
 
 export function TaskList() {
 
-    const tasks = useSelector((state: RootState) => state.tasks)
+    const tasks = useAppSelector((state) => state.tasks)
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const handleDelete = (id: string) => {
         dispatch(deleteTask(id))
@@ -17,7 +16,10 @@ export function TaskList() {
         <div className='task-list-container'>
             <header>
                 <h1>Total Tasks: {tasks.length}</h1>
-                <Link to={"/add-task"} className='header-link'>Create Task</Link>
+                <div style={{ display: "flex", gap: "10px" }}>
+                    <Link to={"/list-users"} className='header-link'>View all users</Link>
+                    <Link to={"/add-task"} className='header-link'>Create Task</Link>
+                </div>
             </header>
             <div className='task-list-data'>
                 {tasks.map((task) => (
