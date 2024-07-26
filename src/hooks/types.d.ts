@@ -10,7 +10,7 @@ export type Task =  {
 
 // Definiendo el tipo de datos de un usuario
 export type User = {
-    readonly id: string,
+    readonly id: uuid,
     name: string,
     email: string,
     github: string

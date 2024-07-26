@@ -1,5 +1,5 @@
-import { Task } from '@/types';
-import { createSlice } from "@reduxjs/toolkit"
+import { Task, uuid } from '@/hooks/types';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 // Definiendo el estado inicial de las tareas utilizando el tipo Task definido anteriormente
 const initialState: Task[] = [
@@ -21,10 +21,10 @@ export const taskSlice = createSlice({
     name: "tasks",
     initialState,
     reducers: {
-        addTask: (state, action) => {
+        addTask: (state, action:PayloadAction<Task>) => {
             state.push(action.payload)
         },
-        updateTask: (state, action) => {
+        updateTask: (state, action: PayloadAction<Task>) => {
             const { id, title, description } = action.payload // Destructuramos el payload para obtener los valores de id, title y description
             const foundTask = state.find(task => task.id === id) // Buscamos la tarea por el id
             // Si encontramos la tarea, actualizamos el título y la descripción
@@ -33,11 +33,9 @@ export const taskSlice = createSlice({
                 foundTask.description = description
             }
         },
-        deleteTask: (state, action) => {
-            const taskFound = state.find(task => task.id === action.payload)
-            if (taskFound) {
-                state.splice(state.indexOf(taskFound), 1)
-            }
+        deleteTask: (state, action: PayloadAction<uuid>) => {
+            const id = action.payload
+            return state.filter((task) => task.id !== id)
         },
     }
 })

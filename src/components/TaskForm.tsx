@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
-import { EventsChange, EventsSubmit, Task } from "@/types"
+import { EventsChange, EventsSubmit, Task } from "@/hooks/types"
 import { addTask, updateTask } from "@/features/tasks/taskSlice" // Importando la acción addTask del slice taskSlice
 import { useNavigate, useParams } from "react-router-dom"
-import { useAppDispatch, useAppSelector } from "@/hooks"
+import { useAppDispatch, useAppSelector } from "@/hooks/hooks"
 
 export function TaskForm() {
 
@@ -28,7 +28,7 @@ export function TaskForm() {
 
         } else {
             dispatch(addTask({
-                ...task,
+                ...task as Task,
                 id: self.crypto.randomUUID()
             }))
         }

@@ -1,6 +1,7 @@
 import { deleteTask } from '@/features/tasks/taskSlice'
 import { Link } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from '@/hooks'
+import { useAppDispatch, useAppSelector } from '@/hooks/hooks'
+import { uuid } from '@/hooks/types'
 
 export function TaskList() {
 
@@ -8,7 +9,7 @@ export function TaskList() {
 
     const dispatch = useAppDispatch()
 
-    const handleDelete = (id: string) => {
+    const handleDelete = (id: uuid) => {
         dispatch(deleteTask(id))
     }
 
