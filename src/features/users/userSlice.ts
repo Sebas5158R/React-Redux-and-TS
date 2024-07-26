@@ -39,9 +39,16 @@ export const userSlice = createSlice({
         deleteUserById: (state, action: PayloadAction<uuid>) => {
             const id = action.payload
             return state.filter((user) => user.id !== id)
-        }
+        },
+        // Esta acción se encarga de deshacer la eliminación de un usuario si falla la petición a la API.
+        rollbackUser: (state, action: PayloadAction<User>) => {
+            const isUserAlredyUndefined = state.some(user => user.id === action.payload.id)
+            if(!isUserAlredyUndefined) {
+                state.push(action.payload)
+            }
+        }   
     }
 })
 
-export const { addNewUser, deleteUserById } = userSlice.actions
+export const { addNewUser, deleteUserById, rollbackUser } = userSlice.actions
 export default userSlice.reducer

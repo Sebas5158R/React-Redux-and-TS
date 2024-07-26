@@ -1,6 +1,6 @@
 import { configureStore, Middleware, Tuple } from '@reduxjs/toolkit'
 import taskReducer from "@/features/tasks/taskSlice"
-import userReducer from "@features/users/userSlice"
+import userReducer, { rollbackUser } from "@features/users/userSlice"
 import { toast } from 'sonner'
 
 // Middleware para persistir los datos de los usuarios
@@ -11,19 +11,26 @@ const persistanceLocalStorageMiddleware: Middleware = (store) => (next) => (acti
 
 const syncWithDatabaseMiddleware: Middleware = store => next => action => {
     const { type, payload } = action
+    const previosState = store.getState()
     next(action)
     
-    console.log(store.getState())
     if (type === "users/deleteUserById") {
-        fetch(`https://jsonplaceholder.typicode.com/users/${payload}`, {
+        const userIdToRemove = payload
+        const userToRemove = previosState.users.find(user => user.id === userIdToRemove)
+
+        fetch(`https://jsonplaceholder.typicode.com/users/${userIdToRemove}`, {
             method: 'DELETE'
-        }).then((response) => {
+        })
+        .then((response) => {
             if (response.ok) {
                 toast.success(`Usuario ${payload} eliminado correctamente`)
             }
-        }).catch((error) => {
+            throw new Error('Error al eliminar el usuario')
+        })
+        .catch((error) => {
+            if(userToRemove) store.dispatch(rollbackUser(userToRemove))
             console.log(error)
-            toast.error(`Error al eliminar el usuario ${payload}`)
+            toast.error(`Error al eliminar el usuario ${userIdToRemove}`)
         })
     }
 }
