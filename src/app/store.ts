@@ -6,6 +6,7 @@ import { toast } from 'sonner'
 // Middleware para persistir los datos de los usuarios
 const persistanceLocalStorageMiddleware: Middleware = (store) => (next) => (action) => {
     next(action)
+    localStorage.setItem('__redux__tasks__state__', JSON.stringify(store.getState().tasks))
     localStorage.setItem('__redux__users__state__', JSON.stringify(store.getState().users))
 }
 

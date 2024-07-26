@@ -16,7 +16,7 @@ export function TaskForm() {
     const handleChange = (e: EventsChange) => {
         setTask({
             ...task as Task,
-            [e.target.name]: e.target.value
+            [e.currentTarget.name]: e.currentTarget.value
         })
     }
 
@@ -24,7 +24,7 @@ export function TaskForm() {
         e.preventDefault()
 
         if (params.id) {
-            dispatch(updateTask(task))
+            dispatch(updateTask(task as Task))
 
         } else {
             dispatch(addTask({

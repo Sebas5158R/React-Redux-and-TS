@@ -1,8 +1,8 @@
 import { Task, uuid } from '@/hooks/types';
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
-// Definiendo el estado inicial de las tareas utilizando el tipo Task definido anteriormente
-const initialState: Task[] = [
+// Definiendo el estado por defecto de las tareas utilizando el tipo Task
+const DEFAULT_STATE_TASK: Task[] = [
     {
         id: `36b8f84d-df4e-4d49-b662-bcde71a8764f`,
         title: "Task 1",
@@ -16,6 +16,13 @@ const initialState: Task[] = [
         completed: false
     }
 ]
+
+// Definiendo el estado inicial del slice
+const initialState: typeof DEFAULT_STATE_TASK = (() => {
+    const persistedStateTasks = localStorage.getItem('__redux__tasks__state__')
+    // Si hay datos en localStorage, los cargamos, de lo contrario, cargamos el estado por defecto.
+    return persistedStateTasks ? JSON.parse(persistedStateTasks) : DEFAULT_STATE_TASK
+})()
 
 export const taskSlice = createSlice({
     name: "tasks",
