@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { TaskList } from '@/components/TaskList'
 import { TaskForm } from '@components/TaskForm'
+import { ListOfUsers } from './components/ListOfUsers'
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
             <Route path='/' element={<TaskList />} />
             <Route path='/add-task' element={<TaskForm />} />
             <Route path='/edit-task/:id' element={<TaskForm />} />
+            <Route path='/list-users' element={<ListOfUsers />} />
           </Routes>
         </BrowserRouter>
       </div>

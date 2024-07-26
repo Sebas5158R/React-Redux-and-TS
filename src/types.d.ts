@@ -8,6 +8,14 @@ export type Task =  {
     completed: boolean
 }
 
+// Definiendo el tipo de datos de un usuario
+export type User = {
+    readonly id: string,
+    name: string,
+    email: string,
+    github: string
+}
+
 // Types para los eventos de los componentes
 export type EventsChange = React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
 export type EventsSubmit = React.MouseEvent<HTMLButtonElement, MouseEvent>
