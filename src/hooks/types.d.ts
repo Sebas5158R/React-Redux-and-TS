@@ -3,18 +3,9 @@ export type RootState = ReturnType<typeof store.getState>
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch
 
-export type RequestState = 'pending' | 'fulfilled' | 'rejected'
-
 export interface Users {
     results: User[];
-    info:    Info;
-}
-
-export interface Info {
-    seed:    string;
-    results: number;
-    page:    number;
-    version: string;
+    loading: 'idle' | 'pending' | 'succeeded' | 'failed'
 }
 
 export interface User {

@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { RequestState, Users } from "../../hooks/types"
+import { User, Users } from "../../hooks/types"
 
-export const fetchUsers = createAsyncThunk<Users | string>(
+export const fetchUsers = createAsyncThunk<User[], void | string>(
     'user/fetchUsers', 
     async() => {
         const response = await fetch('https://randomuser.me/api/?results=5')
@@ -12,26 +12,30 @@ export const fetchUsers = createAsyncThunk<Users | string>(
         return data.results
 })
 
+const initialState: Users = {
+    results: [] as User[],
+    loading: 'idle',
+} satisfies Users
+
 export const userSlice = createSlice({
     name: 'user',
-    initialState: {
-        usersData: {} as Users,
-        status: {} as RequestState,
-        error: null
-    },
+    initialState,
     reducers: {},
     // Add reducers for additional action types here, and handle loading state as needed
     extraReducers: (builder) => {
-        builder
-        .addCase(fetchUsers.pending, (state) => {
-            state.status = 'pending'
-            state.error = null
+        // This is for when it is pending
+        builder.addCase(fetchUsers.pending, (state) => {
+            state.loading = 'pending'
         })
         // This is for when it works well to query the API and get the data
-        .addCase(fetchUsers.fulfilled, (state, action) => {
-            state.status = 'fulfilled'
-            state.usersData = action.payload as Users
-            state.error = null
+        builder.addCase(fetchUsers.fulfilled, (state, action) => {
+            state.results = action.payload
+            state.loading = 'succeeded'
+        })
+        // This is for when the API fails
+        builder.addCase(fetchUsers.rejected, (state, action) => {
+            state.loading = 'failed'
+            console.log(action.error.message)
         })
     }
 })
