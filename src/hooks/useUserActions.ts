@@ -1,8 +1,8 @@
 import { useEffect } from "react"
 import { useAppDispatch, useAppSelector } from "./hooks"
-import { fetchUsers } from "../features/user/userSlice"
+import { addNewUser, fetchUsers } from "../features/user/userSlice"
 import { toast } from "sonner"
-import { Users } from "./types"
+import { User, Users } from "./types"
 
 export const useUserActions = () => {
     const dispatch = useAppDispatch()
@@ -23,5 +23,9 @@ export const useUserActions = () => {
     const isSuccess = loading === 'succeeded'
     const isEror = loading === 'failed'
 
-    return { isIdle, isLoading, isSuccess, isEror, results }
+    const addUser = ({ name, email, phone, location, id, picture }: User) => {
+        dispatch(addNewUser({ name, email, phone, location, id, picture }))
+    }
+
+    return { isIdle, isLoading, isSuccess, isEror, results, addUser }
 }

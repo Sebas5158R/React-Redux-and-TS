@@ -9,13 +9,13 @@ export interface Users {
 }
 
 export interface User {
-    gender:     Gender;
+    gender?:     Gender;
     name:       Name;
     location:   Location;
     email:      string;
     phone:      string;
     id:         ID;
-    picture:    Picture;
+    picture?:    Picture;
 }
 
 export enum Gender {
@@ -29,13 +29,13 @@ export interface ID {
 }
 
 export interface Location {
-    street:      Street;
-    city:        string;
-    state:       string;
+    street?:      Street;
+    city?:        string;
+    state?:       string;
     country:     string;
-    postcode:    number | string;
-    coordinates: Coordinates;
-    timezone:    Timezone;
+    postcode?:    number | string;
+    coordinates?: Coordinates;
+    timezone?:    Timezone;
 }
 
 export interface Coordinates {
@@ -54,7 +54,7 @@ export interface Timezone {
 }
 
 export interface Name {
-    title: string;
+    title?: string;
     first: string;
     last:  string;
 }

@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { User, Users } from "../../hooks/types"
 
 export const fetchUsers = createAsyncThunk<User[], void | string>(
@@ -20,7 +20,11 @@ const initialState: Users = {
 export const userSlice = createSlice({
     name: 'user',
     initialState,
-    reducers: {},
+    reducers: {
+        addNewUser: (state, action: PayloadAction<User>) => {
+            state.results.push(action.payload)
+        } 
+    },
     // Add reducers for additional action types here, and handle loading state as needed
     extraReducers: (builder) => {
         // This is for when it is pending
@@ -40,4 +44,5 @@ export const userSlice = createSlice({
     }
 })
 
+export const { addNewUser } = userSlice.actions
 export default userSlice.reducer

@@ -80,7 +80,7 @@ export const TableUsers = () => {
                             {results.map((user) => (
                                 <TableRow key={user.email}>
                                     <TableCell className="font-medium text-tremor-content-strong dark:text-dark-tremor-content-strong flex items-center gap-2">
-                                        <img src={user.picture.thumbnail} alt={user.name.title} className='rounded-full max-w-9 h-auto' />
+                                        <img src={user.picture?.thumbnail} alt={user.name.title} className='rounded-full max-w-9 h-auto' />
                                         {user.name.first} {user.name.last}
                                     </TableCell>
                                     <TableCell>{user.email}</TableCell>
