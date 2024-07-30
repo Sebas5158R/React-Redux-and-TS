@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.iti {
+  --iti-path-flags-1x: url('./assets/flags.webp');
+  /* --iti-path-flags-2x: url('path/to/flags@2x.webp');
+  --iti-path-globe-1x: url('path/to/globe.webp');
+  --iti-path-globe-2x: url('path/to/globe@2x.webp'); */
+}
