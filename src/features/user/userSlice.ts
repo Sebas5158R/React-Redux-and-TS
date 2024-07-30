@@ -12,10 +12,15 @@ export const fetchUsers = createAsyncThunk<User[], void | string>(
         return data.results
 })
 
-const initialState: Users = {
+const DEFAULT_STATE: Users = {
     results: [] as User[],
     loading: 'idle',
 } satisfies Users
+
+const initialState: typeof DEFAULT_STATE = (() => {
+    const persistedState = localStorage.getItem("__redux__users__state__")
+    return persistedState ? JSON.parse(persistedState) : DEFAULT_STATE
+})()
 
 export const userSlice = createSlice({
     name: 'user',
