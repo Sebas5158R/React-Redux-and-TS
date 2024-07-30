@@ -13,19 +13,9 @@ export interface User {
     name:       Name;
     location:   Location;
     email:      string;
-    login:      Login;
-    dob:        Dob;
-    registered: Dob;
     phone:      string;
-    cell:       string;
     id:         ID;
     picture:    Picture;
-    nat:        string;
-}
-
-export interface Dob {
-    date: Date;
-    age:  number;
 }
 
 export enum Gender {
@@ -61,16 +51,6 @@ export interface Street {
 export interface Timezone {
     offset:      string;
     description: string;
-}
-
-export interface Login {
-    uuid:     string;
-    username: string;
-    password: string;
-    salt:     string;
-    md5:      string;
-    sha1:     string;
-    sha256:   string;
 }
 
 export interface Name {
