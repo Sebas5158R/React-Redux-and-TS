@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
 import { TableUsers } from './components/TableUsers'
 import { CreateNewUser } from './components/CreateNewUser'
+import { Toaster } from 'sonner'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
             <Route path='/create-user' element={<CreateNewUser />} />
         </Routes>
       </BrowserRouter>
+      <Toaster richColors />
     </div>
   )
 }

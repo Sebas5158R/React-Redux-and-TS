@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { useAppDispatch, useAppSelector } from "./hooks"
-import { addNewUser, fetchUsers } from "../features/user/userSlice"
+import { addNewUser, deleteUserByMail, fetchUsers } from "../features/user/userSlice"
 import { toast } from "sonner"
 import { User, Users } from "./types"
 
@@ -11,8 +11,8 @@ export const useUserActions = () => {
 
     useEffect(() => {
         if(loading === 'idle') {
-            toast.success('Usuarios cargados correctamente')
             dispatch(fetchUsers())
+            toast.success('Usuarios cargados correctamente')
         } else if(loading === 'failed') {
             toast.error('Error al cargar los usuarios')
         }
@@ -27,5 +27,9 @@ export const useUserActions = () => {
         dispatch(addNewUser({ name, email, phone, location, id, picture }))
     }
 
-    return { isIdle, isLoading, isSuccess, isEror, results, addUser }
+    const removeUser = (email: string) => {
+        dispatch(deleteUserByMail(email))
+    }
+
+    return { isIdle, isLoading, isSuccess, isEror, results, addUser, removeUser }
 }

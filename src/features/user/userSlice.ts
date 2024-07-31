@@ -23,12 +23,23 @@ const initialState: typeof DEFAULT_STATE = (() => {
 })()
 
 export const userSlice = createSlice({
-    name: 'user',
+    name: 'users',
     initialState,
     reducers: {
         addNewUser: (state, action: PayloadAction<User>) => {
             state.results.push(action.payload)
-        } 
+            state.loading = 'succeeded'
+        },
+        deleteUserByMail: (state, action: PayloadAction<string>) => {
+            state.results = state.results.filter(user => user.email !== action.payload)
+            state.loading = 'succeeded'
+        },
+        rollbackUser: (state, action: PayloadAction<User>) => {
+            const isUserAlredyUndefined = state.results.some(user => user.email === action.payload.email)
+            if(!isUserAlredyUndefined) {
+                state.results.push(action.payload)
+            }
+        }
     },
     // Add reducers for additional action types here, and handle loading state as needed
     extraReducers: (builder) => {
@@ -49,5 +60,5 @@ export const userSlice = createSlice({
     }
 })
 
-export const { addNewUser } = userSlice.actions
+export const { addNewUser, deleteUserByMail, rollbackUser } = userSlice.actions
 export default userSlice.reducer
